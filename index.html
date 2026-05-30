@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CleanTrack — Tu Tintorería Digital</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{font-family:'Inter',sans-serif}body{background:#07080c;color:#f0f0f0}
+.glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08)}
+.accent{color:#60a5fa}.accent-bg{background:linear-gradient(135deg,#60a5fa,#3b82f6)}
+.btn-primary{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;font-weight:700;transition:all .2s;border-radius:12px;padding:14px 28px;border:none}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(96,165,250,.4)}
+.card{background:#0d0f15;border:1px solid #1a2035;border-radius:20px}
+input,select{background:#0d0f15;border:1px solid #1a2035;color:#f0f0f0;border-radius:10px;padding:12px 16px;width:100%;outline:none;transition:border .2s}
+input:focus,select:focus{border-color:#60a5fa}select option{background:#0d0f15}
+.order-card{background:#0d0f15;border:1px solid #1a2035;border-radius:14px;padding:16px;transition:all .3s}
+.order-card:hover{border-color:#60a5fa40}
+.status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700}
+.s-received{background:#1e3a5f;color:#93c5fd;border:1px solid #1e40af}
+.s-cleaning{background:#1e3a5f;color:#60a5fa;border:1px solid #3b82f6}
+.s-ironing{background:#3b2e00;color:#fbbf24;border:1px solid #d97706}
+.s-ready{background:#14532d;color:#4ade80;border:1px solid #16a34a}
+.s-collected{background:#1f1f1f;color:#9ca3af;border:1px solid #374151}
+.garment-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #1a2035}
+.garment-item:last-child{border:none}
+.price-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a2035;font-size:14px}
+.price-row:last-child{border:none}
+.serv-opt{background:#0d0f15;border:1px solid #1a2035;border-radius:10px;padding:12px;cursor:pointer;transition:all .2s;text-align:center}
+.serv-opt.active,.serv-opt:hover{border-color:#60a5fa;background:rgba(96,165,250,.1);color:#60a5fa}
+</style>
+</head>
+<body>
+<nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 accent-bg rounded-lg flex items-center justify-center font-black text-white text-sm">CT</div>
+      <span class="font-bold text-lg">CleanTrack</span>
+    </div>
+    <div class="hidden md:flex gap-8 text-sm text-gray-400">
+      <a href="#tracker" class="hover:text-white transition">Mi pedido</a>
+      <a href="#presupuesto" class="hover:text-white transition">Presupuesto</a>
+      <a href="#recogida" class="hover:text-white transition">Recogida a domicilio</a>
+    </div>
+    <a href="#recogida" class="btn-primary text-sm py-2 px-5">Recogida gratis</a>
+  </div>
+</nav>
+
+<section class="relative min-h-[85vh] flex items-center overflow-hidden">
+  <div class="absolute inset-0"><img src="img/hero.webp" class="w-full h-full object-cover opacity-20"/><div class="absolute inset-0 bg-gradient-to-r from-[#07080c] via-[#07080c]/85 to-transparent"></div></div>
+  <div class="relative max-w-6xl mx-auto px-6 pt-24">
+    <span class="text-xs font-bold text-blue-400 uppercase tracking-[0.4em] mb-4 block">✦ Tintorería & Lavandería Premium</span>
+    <h1 class="text-5xl md:text-7xl font-black leading-tight">Tu ropa,<br/><span class="accent">siempre lista.</span></h1>
+    <p class="text-gray-400 mt-6 text-xl max-w-xl">Sigue el estado de tus prendas en tiempo real. Recogida y entrega a domicilio. Sin sorpresas en el precio.</p>
+    <div class="flex flex-wrap gap-4 mt-10">
+      <a href="#tracker" class="btn-primary text-base">Seguir mi pedido →</a>
+      <a href="#recogida" class="glass text-white font-semibold rounded-xl px-7 py-4 border border-white/10 hover:border-blue-500/30 transition text-sm">Pedir recogida gratis</a>
+    </div>
+    <div class="flex flex-wrap gap-4 mt-10">
+      <div class="glass rounded-xl px-5 py-3 text-sm">🚚 <span class="font-bold">Recogida gratis</span> <span class="text-gray-400">en 2h</span></div>
+      <div class="glass rounded-xl px-5 py-3 text-sm">⚡ <span class="font-bold accent">Express 24h</span> <span class="text-gray-400">disponible</span></div>
+      <div class="glass rounded-xl px-5 py-3 text-sm">📲 <span class="font-bold">Aviso WhatsApp</span> <span class="text-gray-400">cuando esté listo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKER -->
+<section id="tracker" class="max-w-6xl mx-auto px-6 py-24">
+  <div class="grid md:grid-cols-2 gap-10">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold mb-2">Estado de tu pedido</h2>
+      <p class="text-gray-500 text-sm mb-6">Introduce el código de tu ticket o número de teléfono.</p>
+      <div class="flex gap-3 mb-5">
+        <input id="order-code" type="text" placeholder="Código · Ej: CT-8847" class="font-mono uppercase" oninput="this.value=this.value.toUpperCase()"/>
+        <button onclick="trackOrder()" class="btn-primary py-3 px-5 text-sm whitespace-nowrap">Buscar</button>
+      </div>
+      <div id="track-demo" class="text-center py-4 text-gray-600 text-sm">
+        Prueba con <span class="accent font-mono font-bold cursor-pointer" onclick="document.getElementById('order-code').value='CT-8847';trackOrder()">CT-8847</span>
+      </div>
+      <div id="track-result" class="hidden">
+        <div class="glass rounded-xl p-5 mb-5">
+          <div class="flex justify-between items-start mb-3">
+            <div><p class="font-mono text-lg font-black">CT-8847</p><p class="text-gray-400 text-sm mt-1">3 prendas · Entregado: 09:30</p></div>
+            <span class="status-pill s-ironing">🔥 Planchado</span>
+          </div>
+          <div class="text-sm text-gray-400"><span class="font-semibold text-white">Entrega estimada:</span> Hoy 18:00 – 20:00</div>
+        </div>
+
+        <!-- Progress visual -->
+        <div class="flex items-center gap-1 mb-6">
+          <div class="flex flex-col items-center flex-1"><div class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center text-xs">✓</div><p class="text-xs text-center mt-1 text-gray-400">Recibido</p></div>
+          <div class="flex-1 h-0.5 bg-blue-600 mb-4"></div>
+          <div class="flex flex-col items-center flex-1"><div class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center text-xs">✓</div><p class="text-xs text-center mt-1 text-gray-400">Lavado</p></div>
+          <div class="flex-1 h-0.5 bg-yellow-600 mb-4"></div>
+          <div class="flex flex-col items-center flex-1"><div class="w-8 h-8 bg-yellow-600 rounded-full flex items-center justify-center text-xs" style="box-shadow:0 0 12px rgba(251,191,36,.4)">🔥</div><p class="text-xs text-center mt-1 text-yellow-400">Planchado</p></div>
+          <div class="flex-1 h-0.5 bg-[#1a2035] mb-4"></div>
+          <div class="flex flex-col items-center flex-1"><div class="w-8 h-8 bg-[#1a2035] rounded-full flex items-center justify-center text-xs text-gray-600">4</div><p class="text-xs text-center mt-1 text-gray-600">Listo</p></div>
+        </div>
+
+        <h4 class="font-semibold text-sm text-gray-400 uppercase tracking-wider mb-3">Prendas</h4>
+        <div class="card p-4">
+          <div class="garment-item"><span class="text-sm">👔 Camisa blanca Oxford</span><span class="status-pill s-ironing text-xs">Planchando</span></div>
+          <div class="garment-item"><span class="text-sm">👗 Vestido seda negra</span><span class="status-pill s-ironing text-xs">Planchando</span></div>
+          <div class="garment-item"><span class="text-sm">🧥 Americana gris</span><span class="status-pill s-ready text-xs">Lista ✓</span></div>
+        </div>
+
+        <div class="glass rounded-xl p-4 mt-4 text-sm">
+          <div class="price-row"><span class="text-gray-400">Camisa Oxford</span><span>4,50€</span></div>
+          <div class="price-row"><span class="text-gray-400">Vestido seda</span><span>9,00€</span></div>
+          <div class="price-row"><span class="text-gray-400">Americana</span><span>8,50€</span></div>
+          <div class="flex justify-between pt-2 font-bold"><span>TOTAL</span><span class="accent">22,00€</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Presupuestador -->
+    <div id="presupuesto" class="card p-8">
+      <h2 class="text-2xl font-bold mb-2">Presupuesto online</h2>
+      <p class="text-gray-500 text-sm mb-6">Calcula el coste de tu limpieza antes de traerla.</p>
+
+      <div class="mb-4">
+        <label class="text-xs text-gray-500 uppercase tracking-wider mb-2 block">Tipo de servicio</label>
+        <div class="grid grid-cols-3 gap-2 mb-4">
+          <div class="serv-opt active" onclick="setServ(this,'standard')"><p class="text-lg">👕</p><p class="text-xs font-bold mt-1">Estándar</p><p class="text-xs text-gray-500">48h</p></div>
+          <div class="serv-opt" onclick="setServ(this,'express')"><p class="text-lg">⚡</p><p class="text-xs font-bold mt-1">Express</p><p class="text-xs text-gray-500">24h +30%</p></div>
+          <div class="serv-opt" onclick="setServ(this,'premium')"><p class="text-lg">💎</p><p class="text-xs font-bold mt-1">Premium</p><p class="text-xs text-gray-500">Delicados</p></div>
+        </div>
+      </div>
+
+      <div class="space-y-2 mb-5" id="garment-checklist">
+        <label class="flex justify-between items-center p-3 glass rounded-xl cursor-pointer hover:border-blue-500/20 transition"><div class="flex items-center gap-3"><input type="checkbox" class="g-check" data-std="4.50" data-exp="2.00" onchange="calcClean()"/><span class="text-sm">👔 Camisa / Blusa</span></div><span class="text-sm font-bold accent">4,50€</span></label>
+        <label class="flex justify-between items-center p-3 glass rounded-xl cursor-pointer hover:border-blue-500/20 transition"><div class="flex items-center gap-3"><input type="checkbox" class="g-check" data-std="6.50" data-exp="2.50" onchange="calcClean()"/><span class="text-sm">👖 Pantalón</span></div><span class="text-sm font-bold accent">6,50€</span></label>
+        <label class="flex justify-between items-center p-3 glass rounded-xl cursor-pointer hover:border-blue-500/20 transition"><div class="flex items-center gap-3"><input type="checkbox" class="g-check" data-std="9.00" data-exp="3.50" onchange="calcClean()"/><span class="text-sm">👗 Vestido</span></div><span class="text-sm font-bold accent">9,00€</span></label>
+        <label class="flex justify-between items-center p-3 glass rounded-xl cursor-pointer hover:border-blue-500/20 transition"><div class="flex items-center gap-3"><input type="checkbox" class="g-check" data-std="8.50" data-exp="3.00" onchange="calcClean()"/><span class="text-sm">🧥 Americana / Chaqueta</span></div><span class="text-sm font-bold accent">8,50€</span></label>
+        <label class="flex justify-between items-center p-3 glass rounded-xl cursor-pointer hover:border-blue-500/20 transition"><div class="flex items-center gap-3"><input type="checkbox" class="g-check" data-std="22.00" data-exp="8.00" onchange="calcClean()"/><span class="text-sm">🧥 Abrigo / Gabardina</span></div><span class="text-sm font-bold accent">22,00€</span></label>
+        <label class="flex justify-between items-center p-3 glass rounded-xl cursor-pointer hover:border-blue-500/20 transition"><div class="flex items-center gap-3"><input type="checkbox" class="g-check" data-std="35.00" data-exp="12.00" onchange="calcClean()"/><span class="text-sm">👰 Traje / Vestido de novia</span></div><span class="text-sm font-bold accent">35,00€</span></label>
+        <label class="flex justify-between items-center p-3 glass rounded-xl cursor-pointer hover:border-blue-500/20 transition"><div class="flex items-center gap-3"><input type="checkbox" class="g-check" data-std="18.00" data-exp="6.00" onchange="calcClean()"/><span class="text-sm">🛏️ Edredón individual</span></div><span class="text-sm font-bold accent">18,00€</span></label>
+      </div>
+
+      <div class="glass rounded-xl p-5">
+        <div class="price-row"><span class="text-gray-400">Subtotal prendas</span><span id="cl-sub">0€</span></div>
+        <div class="price-row"><span class="text-gray-400">Recargo express</span><span id="cl-exp">0€</span></div>
+        <div class="flex justify-between items-center pt-3 font-bold"><span>TOTAL</span><span class="text-2xl accent" id="cl-total">0€</span></div>
+      </div>
+      <button onclick="this.textContent='✅ Recogida solicitada para hoy';this.disabled=true;this.style.background='#1e3a8a'" class="btn-primary w-full mt-4 text-sm text-center">Solicitar recogida con este pedido</button>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGIDA A DOMICILIO -->
+<section id="recogida" class="max-w-3xl mx-auto px-6 py-16">
+  <div class="card p-10 text-center">
+    <h2 class="text-3xl font-bold mb-3">Recogida a domicilio <span class="accent">gratuita</span></h2>
+    <p class="text-gray-400 mb-8">Recogemos tus prendas hoy y te las devolvemos limpias en 48h.</p>
+    <div class="grid sm:grid-cols-2 gap-4 mb-4">
+      <input type="text" placeholder="Nombre completo"/>
+      <input type="tel" placeholder="Teléfono / WhatsApp"/>
+      <input type="text" placeholder="Dirección de recogida" class="sm:col-span-2"/>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4 mb-5">
+      <select><option>Recogida mañana por la mañana (8-14h)</option><option>Recogida mañana por la tarde (16-20h)</option><option>Recogida en 2 horas (Madrid centro)</option></select>
+      <select><option>Servicio estándar 48h</option><option>Express 24h (+30%)</option><option>Premium / Delicados</option></select>
+    </div>
+    <button onclick="this.innerHTML='✅ Recogida confirmada. Te avisamos 30 min antes.';this.disabled=true;this.style.background='#1e3a8a'" class="btn-primary w-full text-base">Pedir recogida gratis</button>
+  </div>
+</section>
+
+<footer class="border-t border-white/5 py-8 text-center text-gray-600 text-sm">
+  <p class="font-bold text-white mb-1">CleanTrack Tintorería</p>
+  <p>Calle Limpia 15 · Lun–Vie 9:00–20:00 · Sáb 10:00–14:00</p>
+  <p class="mt-2">Desarrollado por <span class="accent font-semibold">PuntoZero Solutions</span></p>
+</footer>
+<script>
+let servType='standard';
+function setServ(el,type){document.querySelectorAll('.serv-opt').forEach(e=>e.classList.remove('active'));el.classList.add('active');servType=type;calcClean();}
+function calcClean(){
+  let sub=0,exp=0;
+  document.querySelectorAll('.g-check:checked').forEach(c=>{sub+=parseFloat(c.dataset.std);exp+=parseFloat(c.dataset.exp);});
+  const expCharge = servType==='express'?exp:servType==='premium'?Math.round(sub*0.3):0;
+  document.getElementById('cl-sub').textContent=sub.toFixed(2)+'€';
+  document.getElementById('cl-exp').textContent=expCharge.toFixed(2)+'€';
+  document.getElementById('cl-total').textContent=(sub+expCharge).toFixed(2)+'€';
+}
+function trackOrder(){document.getElementById('track-demo').classList.add('hidden');document.getElementById('track-result').classList.remove('hidden');}
+</script>
+</body></html>
